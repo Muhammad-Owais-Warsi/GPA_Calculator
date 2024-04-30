@@ -201,23 +201,23 @@ export default function Options() {
             <div className='flex justify-center items-center'>
                 <button className="btn w-6/12 btn-outline btn-success" onClick={calculate}>Calculate</button>
             </div>
-                <div className="flex  justify-center items-center mt-8 font-extrabold text-3xl">
-                    <div>
-                        {result && (
-                            <div className='text-[#A6ADBB] '>
-                                <p>
-                                    Your CGPA: <span>{result}</span>
-                                </p>
-                            </div>
-                        )}
-                    </div>
+            <div className="flex justify-center items-center font-extrabold text-3xl">
+                <div>
+                    {result && (
+                        <div className='text-[#A6ADBB]  mt-8 mb-16'>
+                            <p>
+                                Your CGPA: <span>{result}</span>
+                            </p>
+                        </div>
+                    )}
                 </div>
+            </div>
 
 
 
 
 
-            <footer className="fixed bottom-0 w-full bg-neutral p-4 text-neutral-content flex justify-between items-center">
+            <footer className="fixed bottom-0 w-full bg-neutral p-2 text-neutral-content flex justify-between items-center">
                 <div className="flex items-center">
                     <p>Made by Owais & Deboneil © 2024 - All right reserved</p>
                 </div>
