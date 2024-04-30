@@ -201,7 +201,7 @@ export default function Options() {
             <div className='flex justify-center items-center'>
                 <button className="btn w-6/12 btn-outline btn-success" onClick={calculate}>Calculate</button>
             </div>
-                <div className="flex  justify-center items-center mt-24 font-extrabold text-3xl">
+                <div className="flex  justify-center items-center mt-8 font-extrabold text-3xl">
                     <div>
                         {result && (
                             <div className='text-[#A6ADBB] '>
