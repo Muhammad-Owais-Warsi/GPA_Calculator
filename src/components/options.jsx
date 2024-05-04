@@ -167,7 +167,7 @@ export default function Options() {
 
             <footer className="fixed bottom-0 w-full bg-neutral p-2 text-neutral-content flex justify-between items-center">
                 <div className="flex items-center">
-                    <p>Made by Owais & Deboneil</p>
+                    <p>Made by Owais & Deboneil - {new Date().getFullYear()}</p>
                 </div>
                 <nav className="flex items-center">
                     <a href="https://github.com/Muhammad-Owais-Warsi/GPA_Calculator">                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" className="fill-current">
