@@ -1,3 +1,3 @@
 # Mediocre Meter
-A GPA Calculator named as "Mediocre Meter" to judge someone's mediocrity.
+A GPA Calculator named as "Mediocre Meter" to judge someone's mediocrity in Exams.
 
