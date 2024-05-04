@@ -1,86 +1,10 @@
-import React, { useState } from 'react';
-import { Select, Option } from "@material-tailwind/react";
+import React, { useState,useEffect } from 'react';
+import { Toaster, toast } from 'sonner'
 
-import {
-    Card,
-    CardHeader,
-    Input,
-    Typography,
-    Button,
-    CardBody,
-    CardFooter, // Add this import statement
-} from "@material-tailwind/react";
 
 export default function Options() {
-    // const rowsCount = 5; // Initial number of rows to display
-
-    // const defaultRowValues = {
-    //     credit:0,
-    //     grade:'O'
-    // }
-
-    // const [rows, setRows] = useState(Array.from({ length: rowsCount }, () => ({ ...defaultRowValues })));
-    // const [credit,setCredit] = useState([]);
-    // const [grade,setGrade] = useState([]);
-
-    // const [result, setResult] = useState();
-
-    // const handleAddMember = () => {
-    //     setRows(prevRows => [prevRows,...{credit:0,grade:'O'}]);
-    // };
 
 
-    // const grade_points = {
-    //     "O": 10,
-    //     "A+": 9,
-    //     "B+": 7,
-    //     "B": 6,
-    //     "C": 5.5,
-    //     "W": 0,
-    //     "F": 0,
-    //     "Ab": 0,
-    //     "I": 0,
-    //     "*": 0
-    // };
-
-    // const handleCreditChange = (index, value) => {
-    //     setRows(prevRows => {
-    //         const updatedRows = [...prevRows];
-    //         return updatedRows
-    //     });
-    //     setCredit(prev => [prev,...value])
-    // };
-
-
-    // const handleGradeChange = (index, value) => {
-    //     setRows(prevRows => {
-    //         const updatedRows = [...prevRows];
-    //         return updatedRows;
-    //     });
-    //     setGrade(prev => [prev,...value])
-    // };
-
-    // const calculate = () => {
-    //     var total_credits = 0;
-    //     var points = 0;
-    //     rows.forEach((row,index) => {
-    //         const credits = parseFloat(credit[index]);
-    //         const gradePoint = grade_points[grade[index]] || 0; // If grade is not found, default to 0
-    //         console.log(gradePoint)
-    //         if (!isNaN(credits)) {
-    //             total_credits += credits;
-    //             points += credits * gradePoint;
-    //         }
-    //     });
-    //     const GPA = total_credits !== 0 ? points / total_credits : 0; // To avoid division by zero
-    //     console.log("Total Points:", points);
-    //     console.log("Total Credits:", total_credits);
-    //     console.log("GPA:", GPA);
-    //     setResult(GPA); // If you want to display GPA in the UI
-    // };
-
-
-    const length = 5;
     const defaultCreditValue = 0;
     const defaultGradeValue = 'O';
     const grade_points = {
@@ -96,9 +20,8 @@ export default function Options() {
         "I": 0,
         "*": 0
     };
-
-
-
+    
+    const length = 5;
 
 
     const [rows, setRows] = useState(Array.from({ length: length }, () => ({ credits: defaultCreditValue, grade: defaultGradeValue })));
@@ -126,21 +49,44 @@ export default function Options() {
         });
     };
 
+ 
 
     const calculate = () => {
         let totalCredits = 0;
         let totalGradePoints = 0;
 
-        rows.forEach(({ credits, grade }) => {
-            totalCredits += parseInt(credits); // Convert credits to integer
+        // rows.forEach(({ credits, grade }) => {
+        //     if(credits === null || credits === 0) {
+        //         toast.warning('Missig Fields')
+        //         return ;
+        //     }
+        //     totalCredits += parseInt(credits); // Convert credits to integer
+        //     totalGradePoints += parseInt(credits) * parseInt(grade_points[grade]);
+        //     console.log(credits, grade_points[grade])
+        // });
+        for (const { credits, grade } of rows) {
+            if (credits === null || credits === 0 ) {
+                toast.warning('Missing Fields');
+                setResult('')
+                return;
+            }
+            totalCredits += parseInt(credits);
             totalGradePoints += parseInt(credits) * parseInt(grade_points[grade]);
-            console.log(credits, grade_points[grade])
-        });
+            console.log(credits, grade_points[grade]);
+        }
+
+
+
 
         const gpa = totalGradePoints / totalCredits;
         console.log(totalCredits, totalGradePoints)
         console.log(gpa);
-        setResult(gpa.toFixed(2));
+        if(isNaN(gpa)) {
+            toast.warning("Missing Fields")
+            setResult('');
+        } else {
+            setResult(gpa.toFixed(2));
+        }
     };
 
 
@@ -159,6 +105,7 @@ export default function Options() {
 
 
         <div className="overflow-hidden">
+            <Toaster position='top-center' richColors expand={false}/>
             <table className="table">
                 <tbody>
                     {rows.map((row, index) => (
@@ -168,7 +115,8 @@ export default function Options() {
                                     placeholder="Credits"
                                     className="input w-full max-w-xs select-bordered"
                                     type="number"
-
+                                    value={null}
+                                    min={1}
                                     onChange={(e) => handleCreditChange(index, e.target.value)}
                                 />
                             </td>
@@ -219,7 +167,7 @@ export default function Options() {
 
             <footer className="fixed bottom-0 w-full bg-neutral p-2 text-neutral-content flex justify-between items-center">
                 <div className="flex items-center">
-                    <p>Made by Owais & Deboneil © 2024 - All right reserved</p>
+                    <p>Made by Owais & Deboneil</p>
                 </div>
                 <nav className="flex items-center">
                     <a href="https://github.com/Muhammad-Owais-Warsi/GPA_Calculator">                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" className="fill-current">
